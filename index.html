@@ -2,634 +2,749 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Support Class Toolkit — Claim vs. Evidence vs. Analysis</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support for Evidence and Analysis</title>
   <style>
     :root{
-      --bg:#f7f7fb;
-      --card:#ffffff;
-      --ink:#111827;
-      --muted:#4b5563;
-      --border:#e5e7eb;
-      --accent:#1f2937;
-      --warn:#fff7ed;
-      --warnBorder:#fed7aa;
-      --ok:#ecfdf5;
-      --okBorder:#a7f3d0;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-      line-height:1.45;
-    }
-    header{
-      padding:26px 18px 14px;
-      max-width:980px;
-      margin:0 auto;
-    }
-    h1{
-      margin:0 0 6px;
-      font-size:22px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .sub{margin:0;color:var(--muted);font-size:14px}
-    .wrap{max-width:980px;margin:0 auto;padding:0 18px 40px}
-    .stickyTop{
-      position:sticky;
-      top:0;
-      background:var(--bg);
-      padding:10px 0 8px;
-      z-index:5;
-      border-bottom:1px solid rgba(229,231,235,.8);
-      backdrop-filter: blur(6px);
-    }
-    .nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:14px 0 18px;
-    }
-    .pill{
-      border:1px solid var(--border);
-      background:#fff;
-      padding:8px 10px;
-      border-radius:999px;
-      font-size:13px;
-      color:var(--accent);
-      text-decoration:none;
-    }
-    .pill:hover{border-color:#cbd5e1}
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:16px;
-      box-shadow: 0 1px 0 rgba(17,24,39,.03);
-    }
-    .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
-    @media (max-width: 860px){.grid{grid-template-columns:1fr}}
-    h2{margin:0 0 10px;font-size:16px;font-weight:800}
-    h3{margin:18px 0 8px;font-size:14px;font-weight:800}
-    p{margin:10px 0}
-    .small{font-size:13px;color:var(--muted)}
-    .note{
-      background:var(--warn);
-      border:1px solid var(--warnBorder);
-      border-radius:12px;
-      padding:12px;
-      color:#7c2d12;
-      font-size:14px;
-    }
-    .ok{
-      background:var(--ok);
-      border:1px solid var(--okBorder);
-      border-radius:12px;
-      padding:12px;
-      color:#065f46;
-      font-size:14px;
-    }
-    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width: 860px){.two{grid-template-columns:1fr}}
-    textarea, input[type="text"], select{
-      width:100%;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:10px 12px;
-      font-size:14px;
-      font-family: inherit;
-      background:#fff;
-    }
-    textarea{min-height:120px;resize:vertical}
-    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-    button{
-      appearance:none;
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:10px;
-      padding:9px 11px;
-      font-size:13px;
-      cursor:pointer;
-      color:var(--accent);
-    }
-    button:hover{border-color:#cbd5e1}
-    button.primary{
-      background:var(--accent);
-      color:#fff;
-      border-color:var(--accent);
-    }
-    button.primary:hover{filter:brightness(.95)}
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:12px;
-      padding:2px 6px;
-      border:1px solid var(--border);
-      border-radius:8px;
-      background:#fff;
-      color:var(--muted);
-    }
-    .practiceItem{
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:12px;
-      background:#fff;
-      margin-top:10px;
-    }
-    .practiceItem .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:10px;
-    }
-    .tag{
-      font-size:12px;
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:4px 8px;
-      color:var(--muted);
-      background:#fff;
-    }
-    .answerKey{
-      display:none;
-      margin-top:10px;
-      border-top:1px dashed var(--border);
-      padding-top:10px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .drawer{
-      margin-top:10px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:12px;
-      background:#fafafa;
-    }
-    .drawer h4{margin:0 0 8px;font-size:13px;font-weight:800}
-    .checklist label{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin:8px 0;
-      font-size:14px;
-    }
-    .footer{margin-top:18px;font-size:12px;color:var(--muted)}
-    .sentBox{
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:12px;
-      padding:12px;
-      margin-top:8px;
-      font-size:14px;
+      --paper:#f7efe3;
+      --paper-soft:#fbf6ee;
+      --card:#fffdf8;
+      --ink:#211914;
+      --muted:#66584f;
+      --line:#e4d2bd;
+      --clay:#a84f35;
+      --clay-dark:#783520;
+      --plum:#34233b;
+      --sage:#7d8b68;
+      --gold:#c09345;
+      --shadow:0 18px 46px rgba(60, 39, 24, .13);
+      --soft-shadow:0 10px 25px rgba(60, 39, 24, .08);
+      --focus:#5d6f99;
+      --good:#315d45;
+      --warn:#8a4b21;
     }
 
-    /* ---------- PRINT STYLES (Save as PDF) ---------- */
-    @media print {
-      :root { --bg:#fff; --card:#fff; --border:#000; }
-      body { background:#fff !important; }
-      header { padding:0; }
-      .stickyTop, .nav, .btnrow, button, .pill { display:none !important; }
-      .wrap { padding:0; max-width:none; }
-      .card{
-        box-shadow:none !important;
-        border:1px solid #000 !important;
-        border-radius:0 !important;
-        page-break-inside: avoid;
-        margin:0 0 12px 0;
-      }
-      .note, .ok, .drawer, .sentBox{
-        border:1px solid #000 !important;
-        border-radius:0 !important;
-        background:#fff !important;
-        color:#000 !important;
-      }
-      textarea, input[type="text"], select{
-        border:1px solid #000 !important;
-        border-radius:0 !important;
-      }
-      textarea{min-height:150px}
-      a { color:#000 !important; text-decoration:none !important; }
-      #printHelp { display:none !important; }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(192,147,69,.2), transparent 28%),
+        radial-gradient(circle at 88% 0%, rgba(125,139,104,.16), transparent 30%),
+        linear-gradient(180deg, #fbf3e7 0%, var(--paper) 44%, #f4e7d5 100%);
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:18px;
+      line-height:1.55;
+    }
+
+    a{color:var(--clay-dark)}
+    a:focus, button:focus, input:focus, textarea:focus, select:focus{
+      outline:3px solid var(--focus);
+      outline-offset:3px;
+    }
+    .skip-link{
+      position:absolute;
+      left:18px;
+      top:-50px;
+      z-index:100;
+      background:var(--plum);
+      color:white;
+      padding:10px 14px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+    .skip-link:focus{top:18px}
+
+    .shell{max-width:1180px;margin:0 auto;padding:28px 20px 70px}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(120,53,32,.22);
+      border-radius:32px;
+      background:
+        linear-gradient(135deg, rgba(255,253,248,.96), rgba(255,250,241,.88)),
+        radial-gradient(circle at 80% 20%, rgba(168,79,53,.18), transparent 34%);
+      box-shadow:var(--shadow);
+      padding:36px;
+      margin-bottom:18px;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-70px;
+      bottom:-95px;
+      width:270px;
+      height:270px;
+      border:28px solid rgba(192,147,69,.18);
+      border-radius:50%;
+    }
+    .eyebrow{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      border:1px solid rgba(168,79,53,.24);
+      background:#fff8ee;
+      color:var(--clay-dark);
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+    h1,h2,h3{
+      font-family:Georgia, 'Times New Roman', serif;
+      line-height:1.1;
+      color:var(--ink);
+    }
+    h1{font-size:clamp(2.4rem, 6vw, 5rem);margin:18px 0 12px;letter-spacing:-.045em;max-width:880px}
+    h2{font-size:clamp(1.65rem, 3vw, 2.35rem);margin:0 0 14px;letter-spacing:-.02em}
+    h3{font-size:1.25rem;margin:0 0 10px}
+    p{margin:0 0 14px}
+    .hero p{max-width:750px;font-size:1.08rem;color:#4f4139}
+    .hero-grid{display:grid;grid-template-columns:1fr 280px;gap:22px;position:relative;z-index:1}
+    .hero-note{
+      background:var(--plum);
+      color:#fff8ee;
+      border-radius:24px;
+      padding:20px;
+      align-self:end;
+      box-shadow:var(--soft-shadow);
+    }
+    .hero-note strong{display:block;font-family:Georgia, 'Times New Roman', serif;font-size:1.25rem;margin-bottom:8px}
+    .hero-note p{font-size:.95rem;color:#fff2dc;margin:0}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      margin:18px 0;
+      border:1px solid rgba(90,62,44,.16);
+      border-radius:22px;
+      background:rgba(255,253,248,.86);
+      backdrop-filter:blur(12px);
+      box-shadow:0 8px 28px rgba(60,39,24,.08);
+      padding:12px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+    }
+    .progress-wrap{display:flex;align-items:center;gap:12px;min-width:0}
+    .progress-label{font-size:.88rem;color:var(--muted);white-space:nowrap}
+    .progress-track{height:10px;border-radius:999px;background:#eadcc9;overflow:hidden;flex:1;min-width:120px}
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg, var(--sage), var(--clay));border-radius:999px;transition:.25s ease}
+    .top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+    .layout{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+    .side-nav{
+      position:sticky;
+      top:92px;
+      border:1px solid rgba(90,62,44,.16);
+      border-radius:24px;
+      background:rgba(255,253,248,.76);
+      padding:14px;
+      box-shadow:var(--soft-shadow);
+    }
+    .side-nav p{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin:2px 0 10px}
+    .side-nav a{
+      display:block;
+      padding:10px 11px;
+      border-radius:14px;
+      color:var(--ink);
+      text-decoration:none;
+      font-size:.94rem;
+    }
+    .side-nav a:hover{background:#f1e4d1;color:var(--clay-dark)}
+
+    .stack{display:grid;gap:18px}
+    .card{
+      background:rgba(255,253,248,.95);
+      border:1px solid rgba(90,62,44,.16);
+      border-radius:28px;
+      padding:26px;
+      box-shadow:var(--soft-shadow);
+    }
+    .section-kicker{
+      display:inline-block;
+      color:var(--clay-dark);
+      font-size:.78rem;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .intro-grid,.two{display:grid;gap:14px}
+    .intro-grid{grid-template-columns:repeat(3,1fr)}
+    .two{grid-template-columns:1fr 1fr}
+    .mini-card{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fffaf2;
+      padding:18px;
+    }
+    .mini-card .big-letter{
+      display:inline-grid;
+      place-items:center;
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      background:#ead2bd;
+      color:var(--clay-dark);
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:1.55rem;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+    .mini-card p{font-size:.96rem;color:var(--muted);margin:0}
+    .notice,.success,.hint{
+      border-radius:20px;
+      padding:16px 18px;
+      border:1px solid var(--line);
+      background:#fff6e8;
+      color:#5b3b25;
+    }
+    .success{background:#edf2e5;color:#2f4e38;border-color:#c8d3b8}
+    .hint{background:#f8efe0;color:#66584f}
+
+    label{display:block;font-weight:700;margin:0 0 7px;color:var(--ink);font-size:.94rem}
+    .help{font-size:.86rem;color:var(--muted);margin-top:7px}
+    input[type="text"], textarea, select{
+      width:100%;
+      border:1px solid #d7c3ac;
+      border-radius:18px;
+      background:#fffdfa;
+      color:var(--ink);
+      padding:13px 14px;
+      font:inherit;
+      min-height:48px;
+    }
+    textarea{min-height:150px;resize:vertical}
+    select{cursor:pointer}
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    button{
+      border:1px solid rgba(90,62,44,.22);
+      border-radius:999px;
+      background:#fffaf2;
+      color:var(--ink);
+      padding:11px 16px;
+      font-weight:800;
+      font-size:.92rem;
+      cursor:pointer;
+      min-height:44px;
+      box-shadow:0 5px 14px rgba(60,39,24,.06);
+    }
+    button:hover{transform:translateY(-1px);border-color:rgba(168,79,53,.46)}
+    button.primary{background:var(--clay);border-color:var(--clay);color:#fffaf2}
+    button.dark-btn{background:var(--plum);border-color:var(--plum);color:#fffaf2}
+    button.ghost{background:transparent}
+
+    .sample-paragraph{
+      border-left:7px solid var(--clay);
+      background:#fff8ee;
+      border-radius:22px;
+      padding:18px 20px;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:1.08rem;
+      line-height:1.65;
+      margin:14px 0;
+    }
+    .practice-list{display:grid;gap:12px;margin-top:14px}
+    .practice-item{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fffaf2;
+      padding:16px;
+    }
+    .practice-item.correct{border-color:#9fb28b;background:#f3f7ee}
+    .practice-item.miss{border-color:#d2a172;background:#fff4e8}
+    .sentence{margin-bottom:12px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .tag,.kbd{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fffdf8;
+      padding:5px 10px;
+      color:var(--muted);
+      font-size:.78rem;
+      font-weight:800;
+    }
+    .kbd{font-family:Arial, Helvetica, sans-serif;color:var(--clay-dark)}
+    .result{font-weight:800;color:var(--muted)}
+    .result.good{color:var(--good)}
+    .result.warn{color:var(--warn)}
+    .answer-key{
+      display:none;
+      margin-top:14px;
+      border:1px solid #d7c3ac;
+      border-radius:22px;
+      background:#fffaf2;
+      padding:18px;
+    }
+    .answer-key.show{display:block}
+    .answer-key li{margin-bottom:8px}
+
+    .verb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .verb-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+    .verb-list li{
+      display:grid;
+      grid-template-columns:112px 1fr;
+      gap:12px;
+      align-items:start;
+      border-bottom:1px solid rgba(228,210,189,.75);
+      padding:9px 0;
+    }
+    .verb-list strong{color:var(--clay-dark)}
+    .stem-preview{
+      border:1px dashed #c7ad91;
+      background:#fff8ee;
+      border-radius:20px;
+      padding:14px;
+      min-height:58px;
+      color:var(--muted);
+    }
+
+    .status-note{margin-top:10px;color:var(--muted);font-size:.9rem}
+    .autosave{font-size:.85rem;color:var(--muted);margin-top:8px}
+    .submission-print{display:none}
+
+    @media (max-width: 920px){
+      .hero-grid,.layout,.intro-grid,.two,.verb-grid{grid-template-columns:1fr}
+      .side-nav{position:static;display:grid;grid-template-columns:repeat(2,1fr)}
+      .side-nav p{grid-column:1/-1}
+      .topbar{grid-template-columns:1fr}
+      .top-actions{justify-content:flex-start}
+      .hero{padding:28px 22px}
+      .card{padding:22px}
+    }
+    @media (max-width: 560px){
+      body{font-size:17px}
+      .shell{padding:18px 12px 45px}
+      .side-nav{grid-template-columns:1fr}
+      .hero{border-radius:24px}
+      .card{border-radius:22px}
+      .topbar{border-radius:18px}
+    }
+
+    @media print{
+      @page{margin:.55in}
+      body{background:white;color:black;font-size:12pt;line-height:1.35}
+      .skip-link,.hero,.topbar,.side-nav,.no-print,.screen-only{display:none !important}
+      .shell{max-width:none;padding:0}
+      .layout{display:block}
+      .stack{display:block}
+      .card{box-shadow:none;border:0;border-radius:0;padding:0;background:white}
+      .submission-print{display:block !important}
+      .submission-print h1{font-size:20pt;margin:0 0 8pt;letter-spacing:0}
+      .submission-print h2{font-size:14pt;margin:14pt 0 6pt;letter-spacing:0}
+      .print-box{border:1px solid #000;padding:8pt;margin:0 0 8pt;white-space:pre-wrap;min-height:26pt}
+      .print-meta{display:grid;grid-template-columns:1fr 1fr;gap:8pt;margin:8pt 0 12pt}
+      .print-meta div{border:1px solid #000;padding:6pt;min-height:24pt}
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <h1>Support Class Toolkit: Claim vs. Evidence vs. Analysis</h1>
-    <p class="sub">This page helps you see what each sentence is doing, and gives you language to write real analysis (not repetition).</p>
-  </header>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <div class="wrap">
-
-    <!-- Student info + submission instructions -->
-    <section class="card" id="studentInfo">
-      <h2>Before you start (for submission)</h2>
-
-      <div class="two">
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-grid">
         <div>
-          <label class="small" for="studentName"><strong>Name</strong></label>
-          <input id="studentName" type="text" placeholder="First + last name" />
+          <span class="eyebrow">ENGL&101 Support Practice</span>
+          <h1>Support for Evidence and Analysis</h1>
+          <p>This page helps you figure out what each sentence in a research paragraph is doing. The goal is to move from claim and evidence into real analysis, which means explaining what the evidence means and why it matters.</p>
         </div>
-        <div>
-          <label class="small" for="studentClass"><strong>Class / Section</strong></label>
-          <input id="studentClass" type="text" placeholder="Example: ENGL&101 Support" />
-        </div>
+        <aside class="hero-note" aria-label="Main goal">
+          <strong>The big move</strong>
+          <p>Do not stop after the source. Make the connection for your reader.</p>
+        </aside>
       </div>
+    </header>
 
-      <div class="two" style="margin-top:10px">
-        <div>
-          <label class="small" for="studentDate"><strong>Date</strong></label>
-          <input id="studentDate" type="text" placeholder="Example: March 3, 2026" />
-        </div>
-        <div>
-          <label class="small" for="studentTopic"><strong>Career topic (optional)</strong></label>
-          <input id="studentTopic" type="text" placeholder="Example: Registered nurse" />
-        </div>
+    <div class="topbar screen-only" aria-label="Page tools">
+      <div class="progress-wrap">
+        <span class="progress-label" id="progressText">0% complete</span>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
       </div>
-
-      <div class="note" id="printHelp" style="margin-top:12px">
-        <strong>How to turn this in:</strong>
-        <ol style="margin:8px 0 0 18px">
-          <li>Type your work directly in the boxes on this page.</li>
-          <li>Click <strong>Print / Save as PDF</strong>.</li>
-          <li>Choose <strong>Save as PDF</strong>, save the file, and upload it to Canvas.</li>
-        </ol>
-      </div>
-
-      <div class="btnrow">
-        <button class="primary" id="btnPrint">Print / Save as PDF</button>
-      </div>
-    </section>
-
-    <div class="stickyTop">
-      <div class="nav">
-        <a class="pill" href="#mini">Mini lesson</a>
-        <a class="pill" href="#label">Practice: label sentences</a>
-        <a class="pill" href="#verbs">Analysis verb bank</a>
-        <a class="pill" href="#yourpara">Your paragraph</a>
-        <a class="pill" href="#check">Self-check</a>
+      <div class="top-actions">
+        <button class="primary print-trigger" id="btnPrint" type="button">Print / Save as PDF</button>
       </div>
     </div>
 
-    <!-- Mini lesson -->
-    <section class="card" id="mini">
-      <h2>1) Mini lesson: what each sentence is supposed to do</h2>
+    <main class="layout" id="main">
+      <nav class="side-nav screen-only" aria-label="Page sections">
+        <p>On this page</p>
+        <a href="#mini">Mini lesson</a>
+        <a href="#label">Label sentences</a>
+        <a href="#verbs">Analysis verbs</a>
+        <a href="#yourpara">Your paragraph</a>
+      </nav>
 
-      <div class="ok">
-        <strong>In a research paragraph, you usually need all three:</strong>
-        <ul style="margin:8px 0 0 18px">
-          <li><strong>Claim (C):</strong> your point (what you are saying)</li>
-          <li><strong>Evidence (E):</strong> information from a source (quote or paraphrase + citation)</li>
-          <li><strong>Analysis (A):</strong> your explanation (what the evidence means, why it matters, how it connects)</li>
-        </ul>
-      </div>
-
-      <div class="note" style="margin-top:12px">
-        <strong>Common problem:</strong> students write C + E, and then their “analysis” sentence just repeats the evidence.
-        If your sentence could start with “This shows…” and nothing changes, it might be repetition.
-      </div>
-
-      <div class="drawer" style="margin-top:12px">
-        <h4>Quick self-test</h4>
-        <p class="small" style="margin:0">
-          If you delete your analysis sentence and your paragraph still “makes the same point,” your analysis probably isn’t doing enough work.
-        </p>
-      </div>
-    </section>
-
-    <!-- Practice labeling -->
-    <section class="card" id="label" style="margin-top:14px">
-      <h2>2) Practice: label sentences (C / E / A)</h2>
-
-      <div class="note">
-        <strong>Directions:</strong> Read the short paragraph below. For each sentence, label it:
-        <span class="kbd">C</span> claim • <span class="kbd">E</span> evidence • <span class="kbd">A</span> analysis
-      </div>
-
-      <div class="sentBox" id="samplePara"></div>
-
-      <div id="labelList"></div>
-
-      <div class="btnrow">
-        <button id="btnShowKey">Show answer key</button>
-        <button id="btnHideKey">Hide answer key</button>
-      </div>
-
-      <div class="answerKey" id="answerKey">
-        <strong>Answer key:</strong>
-        <ol>
-          <li><strong>C</strong> — claim about the career (stable but demanding).</li>
-          <li><strong>E</strong> — info from a source + citation placeholder.</li>
-          <li><strong>A</strong> — explains what that evidence suggests about the job (meaning + implication).</li>
-          <li><strong>A</strong> — adds a tradeoff/complication, still analysis.</li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Analysis verb bank -->
-    <section class="card" id="verbs" style="margin-top:14px">
-      <h2>3) Analysis verb bank (use these instead of “This shows”)</h2>
-
-      <div class="grid">
-        <div class="card" style="box-shadow:none">
-          <h3>Verbs that add meaning</h3>
-          <ul style="margin:8px 0 0 18px">
-            <li><strong>suggests</strong> = points toward an idea (not 100% proof)</li>
-            <li><strong>indicates</strong> = gives a sign that something is true</li>
-            <li><strong>implies</strong> = hints at a conclusion</li>
-            <li><strong>highlights</strong> = draws attention to what matters</li>
-            <li><strong>illustrates</strong> = gives a clear example of</li>
-          </ul>
-        </div>
-
-        <div class="card" style="box-shadow:none">
-          <h3>Verbs that go deeper (best for analysis)</h3>
-          <ul style="margin:8px 0 0 18px">
-            <li><strong>complicates</strong> = adds a tradeoff / makes it less simple</li>
-            <li><strong>limits</strong> = shows what the evidence does NOT prove</li>
-            <li><strong>connects</strong> = links evidence back to your claim</li>
-            <li><strong>demonstrates</strong> = shows strongly (use carefully)</li>
-            <li><strong>raises</strong> = brings up a question/concern</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3 style="margin-top:14px">Pick a verb + use a stem</h3>
-      <div class="two">
-        <div>
-          <label class="small" for="verbSelect"><strong>Choose an analysis verb</strong></label>
-          <select id="verbSelect">
-            <option value="">— choose one —</option>
-            <option value="suggests">suggests</option>
-            <option value="indicates">indicates</option>
-            <option value="implies">implies</option>
-            <option value="highlights">highlights</option>
-            <option value="illustrates">illustrates</option>
-            <option value="complicates">complicates</option>
-            <option value="limits">limits</option>
-            <option value="connects">connects</option>
-            <option value="raises">raises</option>
-          </select>
-          <div class="btnrow">
-            <button id="btnInsertVerbStem">Insert a sentence stem</button>
+      <div class="stack">
+        <section class="card no-print" id="mini">
+          <span class="section-kicker">Step 1</span>
+          <h2>Mini lesson: what each sentence is doing</h2>
+          <div class="intro-grid">
+            <div class="mini-card">
+              <span class="big-letter">C</span>
+              <h3>Claim</h3>
+              <p>Your point. This is what you are trying to say about your topic.</p>
+            </div>
+            <div class="mini-card">
+              <span class="big-letter">E</span>
+              <h3>Evidence</h3>
+              <p>Information from a source. This can be a quote, paraphrase, or summary with citation.</p>
+            </div>
+            <div class="mini-card">
+              <span class="big-letter">A</span>
+              <h3>Analysis</h3>
+              <p>Your explanation. This tells the reader what the evidence means, why it matters, and how it connects.</p>
+            </div>
           </div>
-          <p class="small" id="verbMsg">Tip: pick “complicates” or “limits” if you want to sound more academic fast.</p>
-        </div>
-        <div>
-          <label class="small" for="verbBox"><strong>Rewrite an analysis sentence from your essay draft</strong></label>
-          <textarea id="verbBox" placeholder="Rewrite your analysis sentence using your new verb."></textarea>
-        </div>
-      </div>
-    </section>
 
-    <!-- Their paragraph -->
-    <section class="card" id="yourpara" style="margin-top:14px">
-      <h2>4) Your paragraph: label your own sentences + improve analysis</h2>
-
-      <div class="ok">
-        <strong>What to do:</strong>
-        <ol style="margin:8px 0 0 18px">
-          <li>Paste one paragraph from your draft (4–8 sentences is fine).</li>
-          <li>Split it into sentences (or leave it as-is, but try to label each sentence).</li>
-          <li>Label each sentence <span class="kbd">C</span>, <span class="kbd">E</span>, or <span class="kbd">A</span>.</li>
-          <li>Rewrite or add <strong>two</strong> analysis sentences using verbs/stems from Section 3.</li>
-        </ol>
-      </div>
-
-      <h3 style="margin-top:14px">A) Paste your paragraph</h3>
-      <textarea id="yourParagraph" placeholder="Paste one paragraph from your draft here."></textarea>
-
-      <div class="two" style="margin-top:10px">
-        <div>
-          <h3>B) Label your sentences (C / E / A)</h3>
-          <textarea id="yourLabels" placeholder="Example: 1=C, 2=E, 3=A, 4=A"></textarea>
-          <p class="small">You can label loosely. The goal is to notice what your paragraph is missing.</p>
-        </div>
-        <div>
-          <h3>C) Improve your analysis (write 2 sentences)</h3>
-          <textarea id="yourImprovedAnalysis" placeholder="Write two improved analysis sentences here. Use verbs like suggests/indicates/complicates/limits/connects."></textarea>
-          <div class="btnrow">
-            <button id="btnInsertTwoStems">Insert two stems</button>
-            <button id="btnCheckALP">Quick check</button>
+          <div class="notice" style="margin-top:16px">
+            <p><strong>Common issue:</strong> students often write C + E, then their “analysis” sentence just repeats the evidence. Analysis should add a new layer of meaning.</p>
           </div>
-          <p class="small" id="alpMsg">Tip: your analysis should explain meaning + connection, not restate facts.</p>
-        </div>
-      </div>
+          <div class="success" style="margin-top:12px">
+            <p><strong>Quick test:</strong> If you delete your analysis sentence and the paragraph still makes the same point, the analysis probably is not doing enough work yet.</p>
+          </div>
+        </section>
 
-      <div class="btnrow">
-        <button id="btnCopyAll">Copy my work (all boxes)</button>
-      </div>
-    </section>
+        <section class="card no-print" id="label">
+          <span class="section-kicker">Step 2</span>
+          <h2>Practice: label the sentences</h2>
+          <p>Read the sample paragraph. Then label each sentence as <span class="kbd">C</span> claim, <span class="kbd">E</span> evidence, or <span class="kbd">A</span> analysis.</p>
+          <div class="sample-paragraph" id="samplePara" aria-label="Sample paragraph"></div>
+          <div class="practice-list" id="labelList"></div>
+          <div class="btnrow">
+            <button class="dark-btn" id="btnShowKey" type="button">Show answer key</button>
+            <button id="btnHideKey" type="button">Hide answer key</button>
+          </div>
+          <div class="answer-key" id="answerKey">
+            <h3>Answer key</h3>
+            <ol>
+              <li><strong>C:</strong> This sentence makes a claim about the career. It says nursing can be stable and demanding.</li>
+              <li><strong>E:</strong> This sentence uses source information and a citation placeholder.</li>
+              <li><strong>A:</strong> This sentence explains what the evidence suggests about the skills needed for the job.</li>
+              <li><strong>A:</strong> This sentence adds a complication by connecting responsibility to possible stress.</li>
+            </ol>
+          </div>
+        </section>
 
-    <section class="card" id="check" style="margin-top:14px">
-      <h2>5) Self-check before you submit</h2>
-      <div class="checklist">
-        <label><input type="checkbox"> I filled out my name/class/date at the top.</label>
-        <label><input type="checkbox"> I labeled the sample sentences C/E/A and checked the answer key.</label>
-        <label><input type="checkbox"> I wrote at least one analysis sentence using an analysis verb.</label>
-        <label><input type="checkbox"> I pasted one paragraph from my draft and labeled my sentences C/E/A.</label>
-        <label><input type="checkbox"> I wrote two improved analysis sentences.</label>
-        <label><input type="checkbox"> I saved as a PDF and uploaded it to Canvas.</label>
-      </div>
+        <section class="card no-print" id="verbs">
+          <span class="section-kicker">Step 3</span>
+          <h2>Analysis verb bank</h2>
+          <p>These verbs help you move past “This shows.” They push you to explain, connect, or complicate the evidence.</p>
+          <div class="verb-grid">
+            <div class="mini-card">
+              <h3>Verbs that add meaning</h3>
+              <ul class="verb-list">
+                <li><strong>suggests</strong><span>points toward an idea without claiming total proof</span></li>
+                <li><strong>indicates</strong><span>gives a sign that something may be true</span></li>
+                <li><strong>implies</strong><span>points to an idea the source does not say directly</span></li>
+                <li><strong>highlights</strong><span>draws attention to what matters</span></li>
+                <li><strong>illustrates</strong><span>gives a clear example of a larger idea</span></li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <h3>Verbs that go deeper</h3>
+              <ul class="verb-list">
+                <li><strong>complicates</strong><span>adds a tradeoff or makes the point less simple</span></li>
+                <li><strong>limits</strong><span>shows what the evidence does not prove</span></li>
+                <li><strong>connects</strong><span>links evidence back to your claim</span></li>
+                <li><strong>demonstrates</strong><span>shows strongly, when the evidence is strong enough</span></li>
+                <li><strong>raises</strong><span>brings up a question or concern</span></li>
+              </ul>
+            </div>
+          </div>
 
-      <div class="footer">
-        Reminder: if your paragraph has C + E but no A, you are not explaining your evidence yet.
+          <div class="two" style="margin-top:18px">
+            <div>
+              <label for="verbSelect">Choose an analysis verb</label>
+              <select id="verbSelect" data-save="verbSelect">
+                <option value="">Choose one</option>
+                <option value="suggests">suggests</option>
+                <option value="indicates">indicates</option>
+                <option value="implies">implies</option>
+                <option value="highlights">highlights</option>
+                <option value="illustrates">illustrates</option>
+                <option value="complicates">complicates</option>
+                <option value="limits">limits</option>
+                <option value="connects">connects</option>
+                <option value="demonstrates">demonstrates</option>
+                <option value="raises">raises</option>
+              </select>
+              <div class="btnrow">
+                <button id="btnInsertVerbStem" type="button">Insert a sentence stem</button>
+              </div>
+              <div class="stem-preview" id="stemPreview">Choose a verb to see a sentence stem.</div>
+              <p class="status-note" id="verbMsg">Tip: “complicates” and “limits” are helpful when your paragraph sounds too simple.</p>
+            </div>
+            <div>
+              <div class="hint" style="margin-bottom:14px">
+                <p><strong>Try this with your own writing:</strong> Find a sentence in your draft where you explain evidence, or where you wrote something like “This shows.” Rewrite it so the sentence explains what the evidence means.</p>
+              </div>
+              <label for="verbBox">Rewrite one analysis sentence using your chosen verb</label>
+              <textarea id="verbBox" data-save="verbBox" placeholder="Example: This suggests ______, because ______."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="card no-print" id="yourpara">
+          <span class="section-kicker">Step 4</span>
+          <h2>Your paragraph</h2>
+          <div class="success">
+            <p><strong>What to do:</strong> paste one paragraph from your draft, label what each sentence is doing, then write two improved analysis sentences.</p>
+          </div>
+
+          <div style="margin-top:16px">
+            <label for="yourParagraph">A) Paste one paragraph from your draft</label>
+            <textarea id="yourParagraph" data-save="yourParagraph" placeholder="Paste one paragraph from your draft here. Four to eight sentences is enough."></textarea>
+          </div>
+
+          <div class="two" style="margin-top:16px">
+            <div>
+              <label for="yourLabels">B) Label your sentences</label>
+              <textarea id="yourLabels" data-save="yourLabels" placeholder="Example: 1 = C, 2 = E, 3 = A, 4 = A"></textarea>
+              <p class="help">You do not have to be perfect. The point is to notice whether your paragraph has enough analysis.</p>
+            </div>
+            <div>
+              <label for="yourImprovedAnalysis">C) Write two stronger analysis sentences</label>
+              <textarea id="yourImprovedAnalysis" data-save="yourImprovedAnalysis" placeholder="Use verbs like suggests, indicates, complicates, limits, or connects."></textarea>
+              <div class="btnrow">
+                <button id="btnInsertTwoStems" type="button">Insert two stems</button>
+                <button class="dark-btn" id="btnCheckALP" type="button">Quick check</button>
+              </div>
+              <p class="status-note" id="alpMsg">Your analysis should explain meaning and connection, not just restate facts.</p>
+            </div>
+          </div>
+
+          <div class="btnrow">
+            <button class="primary print-trigger" type="button">Print / Save as PDF</button>
+          </div>
+        </section>
+
+        <section class="submission-print" id="submissionPrint" aria-label="Printable submission">
+          <h1>Support for Evidence and Analysis: Submission</h1>
+          <h2>Sample sentence labels</h2>
+          <div class="print-box" id="printSampleLabels"></div>
+          <h2>Analysis sentence using a verb</h2>
+          <div class="print-box" id="printVerbBox"></div>
+          <h2>Paragraph from draft</h2>
+          <div class="print-box" id="printParagraph"></div>
+          <h2>Sentence labels for my paragraph</h2>
+          <div class="print-box" id="printLabels"></div>
+          <h2>Two improved analysis sentences</h2>
+          <div class="print-box" id="printAnalysis"></div>
+        </section>
       </div>
-    </section>
+    </main>
   </div>
 
   <script>
-    // Print button
-    document.getElementById("btnPrint").addEventListener("click", () => window.print());
+    const saveKey = "supportEvidenceAnalysis.v2";
+    const fields = Array.from(document.querySelectorAll("[data-save]"));
+    const saveStatus = document.getElementById("saveStatus");
 
-    // Auto-fill date
-    (function autofillDate(){
-      const dateInput = document.getElementById("studentDate");
-      if(dateInput && !dateInput.value){
-        const d = new Date();
-        const opts = { year: "numeric", month: "long", day: "numeric" };
-        dateInput.value = d.toLocaleDateString(undefined, opts);
-      }
-    })();
-
-    // Sample paragraph (nursing) for labeling
     const sampleSentences = [
       "Nursing may offer stable employment, but the work can also be demanding depending on the setting.",
-      "The Bureau of Labor Statistics describes registered nurses as providing and coordinating patient care and educating patients. (BLS)",
+      "The Bureau of Labor Statistics describes registered nurses as providing and coordinating patient care and educating patients (BLS).",
       "This evidence suggests the job requires both medical knowledge and strong communication skills, not only a desire to help people.",
-      "It also complicates the idea that the career is automatically “easy” or “rewarding,” because high responsibility can increase stress and burnout risk."
+      "It also complicates the idea that the career is automatically easy or rewarding, because high responsibility can increase stress and burnout risk."
     ];
+    const answerKeys = ["C", "E", "A", "A"];
 
-    const sampleParaEl = document.getElementById("samplePara");
-    sampleParaEl.textContent = sampleSentences.join(" ");
+    const verbStems = {
+      suggests: ["This suggests ______, because ______.", "This suggests that ______, which matters because ______."],
+      indicates: ["This indicates ______, especially when ______.", "This indicates that ______, not just ______."],
+      implies: ["This implies ______, even though the source does not say it directly.", "This implies that ______, which connects to my point about ______."],
+      highlights: ["This highlights ______ as an important factor for ______.", "This highlights that ______ matters because ______."],
+      illustrates: ["This illustrates ______ by showing ______.", "This illustrates how ______ can affect ______."],
+      complicates: ["This complicates the idea that ______, because ______.", "This complicates my claim by adding the tradeoff that ______."],
+      limits: ["This limits the claim that ______, because the source does not address ______.", "A limitation is ______, so this evidence does not prove ______."],
+      connects: ["This connects to my claim by showing ______.", "This connects back to my point about ______, because ______."],
+      demonstrates: ["This demonstrates ______ because ______.", "This demonstrates that ______ is important when ______."],
+      raises: ["This raises the question of ______, especially for ______.", "This raises a concern about ______, which matters because ______."]
+    };
 
-    // Render labeling practice
-    const labelList = document.getElementById("labelList");
-    function renderLabeling(){
+    function escapeHtml(str){
+      return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+    }
+
+    function renderSample(){
+      document.getElementById("samplePara").textContent = sampleSentences.join(" ");
+      const labelList = document.getElementById("labelList");
       labelList.innerHTML = "";
-      sampleSentences.forEach((s, i) => {
-        const div = document.createElement("div");
-        div.className = "practiceItem";
-        div.innerHTML = `
-          <div><strong>${i+1}.</strong> ${escapeHtml(s)}</div>
+      sampleSentences.forEach((sentence, index) => {
+        const item = document.createElement("div");
+        item.className = "practice-item";
+        item.innerHTML = `
+          <div class="sentence"><strong>Sentence ${index + 1}:</strong> ${escapeHtml(sentence)}</div>
           <div class="row">
-            <span class="tag">Choose: C / E / A</span>
-            <select aria-label="Choose C, E, or A">
-              <option value="">—</option>
-              <option value="C">C (claim)</option>
-              <option value="E">E (evidence)</option>
-              <option value="A">A (analysis)</option>
+            <span class="tag">Choose C, E, or A</span>
+            <select class="sample-select" data-sample="${index}" aria-label="Label sentence ${index + 1}">
+              <option value="">Choose</option>
+              <option value="C">C: claim</option>
+              <option value="E">E: evidence</option>
+              <option value="A">A: analysis</option>
             </select>
-            <span class="small" data-result></span>
-          </div>
-        `;
-        // keys: 1=C, 2=E, 3=A, 4=A
-        const key = (i===0) ? "C" : (i===1) ? "E" : "A";
-        const sel = div.querySelector("select");
-        const res = div.querySelector("[data-result]");
-        sel.addEventListener("change", () => {
-          if(!sel.value){ res.textContent = ""; return; }
-          res.textContent = sel.value === key ? "✓" : "Not quite";
+            <span class="result" data-result="${index}"></span>
+          </div>`;
+        labelList.appendChild(item);
+      });
+      Array.from(document.querySelectorAll(".sample-select")).forEach(select => {
+        select.addEventListener("change", () => {
+          const index = Number(select.dataset.sample);
+          const result = document.querySelector(`[data-result="${index}"]`);
+          const item = select.closest(".practice-item");
+          item.classList.remove("correct", "miss");
+          if(!select.value){ result.textContent = ""; result.className = "result"; saveWork(); updateProgress(); return; }
+          if(select.value === answerKeys[index]){
+            result.textContent = "Correct";
+            result.className = "result good";
+            item.classList.add("correct");
+          }else{
+            result.textContent = "Not quite";
+            result.className = "result warn";
+            item.classList.add("miss");
+          }
+          saveWork();
+          updateProgress();
         });
-        labelList.appendChild(div);
       });
     }
 
-    document.getElementById("btnShowKey").addEventListener("click", () => {
-      document.getElementById("answerKey").style.display = "block";
-    });
-    document.getElementById("btnHideKey").addEventListener("click", () => {
-      document.getElementById("answerKey").style.display = "none";
-    });
+    function getState(){
+      const data = {};
+      fields.forEach(field => data[field.id] = field.value || "");
+      data.sampleLabels = Array.from(document.querySelectorAll(".sample-select")).map(select => select.value || "");
+      return data;
+    }
 
-    // Analysis verb stems
-    const verbStems = {
-      suggests: [
-        "This suggests ______, because ______.",
-        "This suggests that ______, which matters because ______."
-      ],
-      indicates: [
-        "This indicates ______, especially when ______.",
-        "This indicates that ______, not just ______."
-      ],
-      implies: [
-        "This implies ______, even if the source does not say it directly.",
-        "This implies that ______, which connects to my point about ______."
-      ],
-      highlights: [
-        "This highlights ______ as an important factor for ______.",
-        "This highlights that ______ matters because ______."
-      ],
-      illustrates: [
-        "This illustrates ______ by showing ______.",
-        "This illustrates how ______ can affect ______."
-      ],
-      complicates: [
-        "This complicates the idea that ______, because ______.",
-        "This complicates my claim by adding the tradeoff that ______."
-      ],
-      limits: [
-        "This limits the claim that ______, because the source does not address ______.",
-        "A limitation is ______, so this evidence does not prove ______."
-      ],
-      connects: [
-        "This connects to my claim by showing ______.",
-        "This connects back to my point about ______, because ______."
-      ],
-      raises: [
-        "This raises the question of ______, especially for ______.",
-        "This raises a concern about ______, which matters because ______."
-      ]
-    };
+    function saveWork(){
+      localStorage.setItem(saveKey, JSON.stringify(getState()));
+      if(saveStatus){
+        saveStatus.textContent = "Saved in this browser.";
+      }
+    }
 
-    document.getElementById("btnInsertVerbStem").addEventListener("click", () => {
+    function loadWork(){
+      try{
+        const raw = localStorage.getItem(saveKey);
+        if(!raw) return;
+        const data = JSON.parse(raw);
+        fields.forEach(field => {
+          if(Object.prototype.hasOwnProperty.call(data, field.id)) field.value = data[field.id];
+        });
+        if(Array.isArray(data.sampleLabels)){
+          Array.from(document.querySelectorAll(".sample-select")).forEach((select, i) => {
+            select.value = data.sampleLabels[i] || "";
+            select.dispatchEvent(new Event("change"));
+          });
+        }
+        if(saveStatus) saveStatus.textContent = "Restored saved work from this browser.";
+      }catch(e){
+        if(saveStatus) saveStatus.textContent = "Saved work could not be restored.";
+      }
+    }
+
+    function updateStemPreview(){
       const verb = document.getElementById("verbSelect").value;
-      const box = document.getElementById("verbBox");
-      const msg = document.getElementById("verbMsg");
+      const preview = document.getElementById("stemPreview");
       if(!verb){
-        msg.textContent = "Choose a verb first.";
+        preview.textContent = "Choose a verb to see a sentence stem.";
         return;
       }
-      const stems = verbStems[verb] || ["This suggests ______, because ______."];
-      const pick = stems[Math.floor(Math.random() * stems.length)];
-      box.value = box.value ? (box.value + "\n" + pick) : pick;
-      msg.textContent = "Stem added. Fill in the blanks with specifics.";
-    });
+      preview.textContent = verbStems[verb][0];
+    }
 
-    // Insert two stems for improved analysis
-    document.getElementById("btnInsertTwoStems").addEventListener("click", () => {
-      const box = document.getElementById("yourImprovedAnalysis");
-      const picks = [
-        "This suggests ______, which matters because ______.",
-        "This complicates the idea that ______, because ______."
+    function appendText(id, text){
+      const box = document.getElementById(id);
+      box.value = box.value.trim() ? box.value.trim() + "\n" + text : text;
+      box.dispatchEvent(new Event("input"));
+    }
+
+    function updateProgress(){
+      const state = getState();
+      const tasks = [
+        state.sampleLabels.filter(Boolean).length >= 4,
+        state.verbBox.trim(),
+        state.yourParagraph.trim(),
+        state.yourLabels.trim(),
+        state.yourImprovedAnalysis.trim()
       ];
-      box.value = box.value ? (box.value + "\n\n" + picks.join("\n")) : picks.join("\n");
-      document.getElementById("alpMsg").textContent = "Stems added. Fill in the blanks with specifics.";
-    });
+      const done = tasks.filter(Boolean).length;
+      const percent = Math.round((done / tasks.length) * 100);
+      document.getElementById("progressFill").style.width = percent + "%";
+      document.getElementById("progressText").textContent = percent + "% complete";
+    }
 
-    // Quick check (lightweight)
-    document.getElementById("btnCheckALP").addEventListener("click", () => {
-      const para = (document.getElementById("yourParagraph").value || "").trim();
-      const labels = (document.getElementById("yourLabels").value || "").trim();
-      const analysis = (document.getElementById("yourImprovedAnalysis").value || "").trim();
+    function quickCheck(){
+      const para = document.getElementById("yourParagraph").value.trim();
+      const labels = document.getElementById("yourLabels").value.trim();
+      const analysis = document.getElementById("yourImprovedAnalysis").value.trim();
       const msg = document.getElementById("alpMsg");
-
       const missing = [];
       if(!para) missing.push("your paragraph");
-      if(!labels) missing.push("labels (C/E/A)");
+      if(!labels) missing.push("sentence labels");
       if(!analysis) missing.push("two improved analysis sentences");
-
       if(missing.length){
         msg.textContent = "Missing: " + missing.join(", ") + ".";
         return;
       }
-
-      // gentle nudge if they only wrote "this shows"
-      if(analysis.toLowerCase().includes("this shows")){
-        msg.textContent = "Try replacing “This shows” with suggests/indicates/complicates/limits/connects.";
+      const lower = analysis.toLowerCase();
+      if(lower.includes("this shows")){
+        msg.textContent = "Try replacing “This shows” with suggests, indicates, complicates, limits, or connects.";
         return;
       }
-
-      msg.textContent = "Looks good. Make sure your analysis explains meaning and links back to your point.";
-    });
-
-    // Copy all work
-    document.getElementById("btnCopyAll").addEventListener("click", async () => {
-      const parts = [
-        ["Name", document.getElementById("studentName").value],
-        ["Class/Section", document.getElementById("studentClass").value],
-        ["Date", document.getElementById("studentDate").value],
-        ["Topic", document.getElementById("studentTopic").value],
-        ["Analysis sentence (using a verb)", document.getElementById("verbBox").value],
-        ["Your paragraph", document.getElementById("yourParagraph").value],
-        ["Your C/E/A labels", document.getElementById("yourLabels").value],
-        ["Two improved analysis sentences", document.getElementById("yourImprovedAnalysis").value]
-      ];
-
-      const text = parts
-        .filter(([k,v]) => (v || "").trim().length)
-        .map(([k,v]) => `${k}:\n${v.trim()}\n`)
-        .join("\n");
-
-      try{
-        await navigator.clipboard.writeText(text);
-        document.getElementById("alpMsg").textContent = "Copied. You can paste this into Canvas if needed.";
-      }catch(e){
-        document.getElementById("alpMsg").textContent = "Copy didn’t work in this browser. You can manually select + copy.";
+      if(!/(suggests|indicates|implies|highlights|illustrates|complicates|limits|connects|demonstrates|raises)/i.test(analysis)){
+        msg.textContent = "Try adding one analysis verb from Step 3 so the sentence makes a clearer thinking move.";
+        return;
       }
-    });
-
-    function escapeHtml(str){
-      return str.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+      msg.textContent = "Looks ready. Make sure each analysis sentence explains what the evidence means and connects to your point.";
     }
 
-    // Init
-    renderLabeling();
+    function populatePrint(){
+      const sampleLabels = Array.from(document.querySelectorAll(".sample-select")).map((select, i) => `Sentence ${i + 1}: ${select.value || "not labeled"}`).join("\n");
+      document.getElementById("printSampleLabels").textContent = sampleLabels;
+      document.getElementById("printVerbBox").textContent = document.getElementById("verbBox").value;
+      document.getElementById("printParagraph").textContent = document.getElementById("yourParagraph").value;
+      document.getElementById("printLabels").textContent = document.getElementById("yourLabels").value;
+      document.getElementById("printAnalysis").textContent = document.getElementById("yourImprovedAnalysis").value;
+    }
+
+    renderSample();
+    loadWork();
+    updateStemPreview();
+    updateProgress();
+    saveWork();
+
+    fields.forEach(field => field.addEventListener("input", () => { saveWork(); updateProgress(); }));
+    fields.forEach(field => field.addEventListener("change", () => { saveWork(); updateProgress(); }));
+    document.getElementById("verbSelect").addEventListener("change", () => { updateStemPreview(); saveWork(); updateProgress(); });
+    document.getElementById("btnInsertVerbStem").addEventListener("click", () => {
+      const verb = document.getElementById("verbSelect").value;
+      const msg = document.getElementById("verbMsg");
+      if(!verb){ msg.textContent = "Choose a verb first."; return; }
+      const choices = verbStems[verb];
+      appendText("verbBox", choices[Math.floor(Math.random() * choices.length)]);
+      msg.textContent = "Stem added. Fill in the blanks with your specific evidence and point.";
+    });
+    document.getElementById("btnInsertTwoStems").addEventListener("click", () => {
+      appendText("yourImprovedAnalysis", "This suggests ______, which matters because ______.\nThis complicates the idea that ______, because ______.");
+      document.getElementById("alpMsg").textContent = "Stems added. Fill in the blanks with specifics from your paragraph.";
+    });
+    document.getElementById("btnCheckALP").addEventListener("click", quickCheck);
+    Array.from(document.querySelectorAll(".print-trigger")).forEach(button => {
+      button.addEventListener("click", () => { populatePrint(); window.print(); });
+    });
+    document.getElementById("btnShowKey").addEventListener("click", () => document.getElementById("answerKey").classList.add("show"));
+    document.getElementById("btnHideKey").addEventListener("click", () => document.getElementById("answerKey").classList.remove("show"));
+    window.addEventListener("beforeprint", populatePrint);
   </script>
 </body>
 </html>
